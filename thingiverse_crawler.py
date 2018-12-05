@@ -1,4 +1,10 @@
 #!//usr/bin/env python
+################################################################
+#
+# Python script for scraping thingiverse
+#
+#
+################################################################
 
 import argparse
 import datetime
