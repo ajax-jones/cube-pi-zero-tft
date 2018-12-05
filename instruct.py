@@ -5,6 +5,9 @@
 # Author : Ajax Jones
 # Date : 5 Dec 2018
 # For more information, https://www.instructables.com/member/Ajaxjones/
+#
+# additional changes by Ajax Jones
+#
 ########################################################################    
 import urllib2 
 import re
