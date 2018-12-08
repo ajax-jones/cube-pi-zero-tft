@@ -44,7 +44,13 @@ def get_views(text):
 author = "Ajaxjones"
 base_url = "https://www.instructables.com/member/{}"
 url = base_url.format(author)
+output_name = "instruct"
 
 contents = get_url(url).text
 views  =  get_views(contents)
 print (views)
+
+with open(output_name+".csv", 'w') as fout:
+	fout.write(str(views))
+	fout.write("\n")
+
