@@ -55,7 +55,9 @@ try:
 		DrawRect(3,3,124 ,156,WHITE)
 
 
-                FillCircle(52,65,15,WHITE)
+                FillCircle(52,65,25,WHITE)
+                FillCircle(52,65,23,RED)
+                FillCircle(52,65,20,BLACK)
 		FillRect (18,100,76,120,BLACK)
 		instruct = Run("cat instruct.csv")
 		acc(instruct)
