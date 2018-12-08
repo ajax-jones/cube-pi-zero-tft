@@ -23,6 +23,30 @@ def acc(accnum):
         DrawRect(17,99,77,121,BLUE)
         DrawRect(18,100,76,120,BLUE)
         PutString2(22,104,acctext,WHITE)
+
+def views(x,y,viewnum,txtcolor):
+        str_width=GetStringWidth(str(viewnum))
+        str_height=5
+
+        ch_height = font.fontInfo[0]
+	ch_width  = GetCharWidth("M")
+
+        viewtext = str(viewnum)
+
+#        print(x,y,str_width,ch_height,	BLACK)
+	x1 = x+str_width+2
+	y1 = y+ch_height+2
+        FillRect(x,y, 	x1,y1,	BLACK)
+
+        DrawRect(x,y,x1,y1,BLUE)
+        DrawRect(x+1,y+1,x1-1,y1-1,BLUE)
+
+        PutString2(x+3,y+3,viewtext.strip(),txtcolor)
+
+
+
+
+
 def daybar(startx, starty, height,width,nis,mb,ok):
         total = nis+mb+ok
         one_percent = float(height) / 100

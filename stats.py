@@ -1,12 +1,15 @@
 #!/usr/bin/python
 ########################################################################
-#
 # A Python script for controlling the Adafruit 1.8" TFT LCD module based on the work by 
 # Author : Bruce E. Hall, W8BH <bhall66@gmail.com>
 # Date : 25 Feb 2014
 # For more information, see w8bh.net
 ########################################################################
 import sys
+import math
+import time
+import datetime as dt
+
 # the mock-0.3.1 dir contains testcase.py, testutils.py & mock.py
 sys.path.append('/home/pi/cube-pi-zero-tft')
 
@@ -20,12 +23,10 @@ MFB3            = 0x0CD8
 MFB4            = 0x026C
 MFW1            = 0xFFFF
 
-
 ########################################################################
 #
 # Main Program
 #
-import math
 from cubefunc import *
 
 print "Maker stats "
@@ -55,12 +56,60 @@ try:
 		DrawRect(3,3,124 ,156,WHITE)
 
 
-                FillCircle(52,65,25,WHITE)
-                FillCircle(52,65,23,RED)
-                FillCircle(52,65,20,BLACK)
-		FillRect (18,100,76,120,BLACK)
+		clockCentreX = 32
+		clockCentreY = 65
+		clockradius  = 30
+		clockhr	     = clockradius-10
+		clockmin     = clockradius-5
+                FillCircle(clockCentreX,clockCentreY,clockradius,WHITE)
+                FillCircle(clockCentreX,clockCentreY,clockradius-2,MFB4)
+                FillCircle(clockCentreX,clockCentreY,clockradius-4,BLACK)
+
+
+  		for z in range(0,360,30):
+  			#Begin at 0 and stop at 360
+    			angle = z 
+    			angle=(angle/57.29577951) 		#Convert degrees to radians
+    			x2=int((clockCentreX+(math.sin(angle)*clockradius)))
+    			y2=int((clockCentreY-(math.cos(angle)*clockradius)))
+    			x3=int((clockCentreX+(math.sin(angle)*(clockradius-5))))
+    			y3=int((clockCentreY-(math.cos(angle)*(clockradius-5))))
+			Line(x2,y2,x3,y3,WHITE)
+			Line(x3,y3,x2,y2,WHITE)
+
+
+		htime =  dt.datetime.now().hour
+		mtime =  dt.datetime.now().minute
+		# Hour Hand
+		angle = htime  * 30 + int((mtime / 12) * 6 )
+		angle=(angle/57.29577951) # Convert degrees to radians  
+  		x3=int((clockCentreX+(math.sin(angle)*(clockhr))))
+  		y3=int((clockCentreY-(math.cos(angle)*(clockhr))))
+  		Line(clockCentreX,clockCentreY,x3,y3,WHITE)
+
+		# Minute Hand
+		angle = mtime * 6
+  		angle=(angle/57.29577951) # Convert degrees to radians  
+  		x3=int((clockCentreX+(math.sin(angle)*(clockmin))))
+  		y3=int((clockCentreY-(math.cos(angle)*(clockmin))))
+  		Line(clockCentreX,clockCentreY,x3,y3,WHITE)
+  		Line(x3,y3,clockCentreX,clockCentreY,WHITE)
+#  		print(clockCentreX,clockCentreY,x3,y3,WHITE)
+
+#		FillRect (18,100,76,120,BLACK)
 		instruct = Run("cat instruct.csv")
-		acc(instruct)
+		views(70,8,"Instr",WHITE)
+		views(72,32,instruct,WHITE)
+
+		views(70,60,"Thing",WHITE)
+		views(72,84,822,WHITE)
+
+		DemiCircle(95,130,20,MFB1)
+		Circle(95,130,21,MFB2)
+		Circle(95,130,22,MFB2)
+		Circle(95,130,23,MFB2)
+
+
 
                 time.sleep(12)
 

@@ -220,17 +220,24 @@ def ClearScreen():
 def HLine (x0,x1,y,color):      # "draws a horizontal line in given color"
         width = x1-x0+1
         SetAddrWindow(x0,y,x1,y)
-        WriteBulk(color,width)
+	if width <0:
+		width = width * -1
+    	#print("HL",x0,y,x1,y,"w=",width,color)
+   	WriteBulk(color,width)
 
 def VLine (x,y0,y1,color):      #  "draws a verticle line in given color"
         height = y1-y0+1
+	if height <0:
+		height = height * -1
         SetAddrWindow(x,y0,x,y1)
         WriteBulk(color,height)
 
 
 def Line (x0,y0,x1,y1,color):   #"draws a line in given color"
+	#print ("Line",x0,x1,y0,y1,color)
         if (x0==x1):
                 VLine(x0,y0,y1,color)
+		#print ("vline",x0,y0,y1,color)
         elif (y0==y1):
                 HLine(x0,x1,y0,color)
         else:
@@ -271,6 +278,20 @@ def FillCircle(xPos,yPos,radius,color): #"draws filled circle at x,y with given 
                 y1 = yPos+y
                 VLine(xPos+x,y0,y1,color)
                 VLine(xPos-x,y0,y1,color)
+
+
+
+
+def DemiCircle(xPos,yPos,radius,color): #"draws filled circle at x,y with given rad$
+        r2 = radius * radius
+        for x in range(radius):
+                y = int(sqrt(r2-x*x))
+                y0 = yPos-y
+                y1 = yPos+y
+                VLine(xPos+x,y0,y1,color)
+                VLine(xPos-x,y0,y1,WHITE)
+
+
 
 ########################################################################
 #
