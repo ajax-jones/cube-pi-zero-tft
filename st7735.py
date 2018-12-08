@@ -1,7 +1,7 @@
 #!/usr/bin/python
 ##
 import sys
-sys.path.append('/home/pi/web')
+sys.path.append('/home/pi/cube-pi-zero-tft')
 
 #import cooper14 as font
 import monotxt12 as font
@@ -36,11 +36,12 @@ from math import sqrt
 # 9 VCC 3V3
 # 10 GND GND
 DC = 25
-RST = 18
+RST = 23
+LED = 18
 DEBUG = False
 
-XSIZE = 128
-YSIZE = 160
+XSIZE = 160
+YSIZE = 128
 XMAX = XSIZE-1
 YMAX = YSIZE-1
 X0 = XSIZE/2
@@ -109,12 +110,18 @@ def InitGPIO():
  GPIO.setup(DC,GPIO.OUT)
  GPIO.setup(RST,GPIO.OUT)
  SetPin(RST,1)
+ GPIO.setup(LED, GPIO.OUT)
+ #pwm = GPIO.PWM(LED,1000)
+ #pwm.start(50)
+ SetPin(LED,1)
 
 def InitSPI():
         spiObject = spidev.SpiDev()
         spiObject.open(0,0)
+	spiObject.max_speed_hz=9000000
         spiObject.mode = 0
         return spiObject
+
 ########################################################################
 #
 # ST7735 TFT controller routines:

@@ -1,5 +1,5 @@
 import sys
-sys.path.append('/home/pi/web')
+sys.path.append('/home/pi/cube-pi-zero-tft')
 from st7735 import *
 def nis(nisnum):
         nistext = "NIS " + str(nisnum)
